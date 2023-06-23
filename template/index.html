@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="banner">
+    <img src="/static/img/home_banner.webp" alt="">
+</section>
+    <section class="services">
+        <div class="container">
+            <div class="feature">
+                <div class="card">
+                    <img src="/static/img/person.png" alt="">
+                    <h2>Master Chefs</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos voluptate minus voluptatem
+                        accusantium perspiciatis tenetur consequuntur enim ipsam, alias amet.</p>
+                </div>
+                <div class="card">
+                    <img src="/static/img/food-dish-icon.png" alt="">
+                    <h2>Quality Food</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos voluptate minus voluptatem
+                        accusantium perspiciatis tenetur consequuntur enim ipsam, alias amet.</p>
+                </div>
+                <div class="card">
+                    <img src="/static/img/add-item-in-cart-icon.png" alt="">
+                    <h2>Online Order</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos voluptate minus voluptatem
+                        accusantium perspiciatis tenetur consequuntur enim ipsam, alias amet.</p>
+                </div>
+                <div class="card">
+                    <img src="/static/img/helpdesk-icon.png" alt="">
+                    <h2>24/7 Help</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos voluptate minus voluptatem
+                        accusantium perspiciatis tenetur consequuntur enim ipsam, alias amet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="About">
+        <div class="gallary">
+            <div class="photo"><img src="/static/img/1.jpg" alt=""></div>
+            <div class="photo"><img src="/static/img/2.jpg" alt=""></div>
+            <div class="photo"><img src="/static/img/3.jpg" alt=""></div>
+            <div class="photo"><img src="/static/img/4.png" alt=""></div>
+        </div>
+        <div class="description">
+            <h3>About</h3>
+            <h1>Welcome To Food-O-Meter</h1>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam, cum quae iusto dolorum doloremque
+                facere! Error impedit dolor dolorem iste?</p>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error, ex magnam? Quibusdam ab dicta sed
+                quisquam delectus ipsa. Ut repudiandae dolorum tempore magnam repellat minima, sunt rerum ex adipisci
+                facere.</p>
+        </div>
+    </section>
+    <section class="items">
+        {% for i in menu %}
+        <div class="item">
+            <form method="post">
+            <img src="/media/{{i.item_img}}" alt="">
+            <h4>{{i.item_name}}</h4>
+            <h4 class="price">&#x20b9;{{i.item_price}}</h4>
+            
+            
+                {% csrf_token %}
+                <button name="product" class="addTocart" value="{{i.id}}">Add To Cart</button>
+            </form>
+        </div>
+        {% endfor %}
+    </section>
+    {% endblock %}

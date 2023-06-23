@@ -1,0 +1,1 @@
+web: gunicorn foodOmeter.wsgi --log-file -

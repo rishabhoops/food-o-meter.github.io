@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if status %}
+<script>
+    alert("{{status}}");
+</script>
+{% endif %}
+    <section class="dashboard">
+        <div class="box">
+            <h1>Welcome To Dashboard</h1>
+            <div class="dash-nav">
+                <ul>
+                    <li> <a href="">Dashboard</a></li>
+                    <li id="edit">Edif Profile</li>
+                    <li  id="edit-pass">Change Password</li>
+                    <li><a href="">My Order {{ order | length }}</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </div>
+            <div id="edit-profile">
+                <span id="close">x</span>
+                <h2>Edit Profile</h2>
+                <div>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="ef">  
+                            <label for="">Name</label>              
+                            <input type="text" class="form-control" placeholder="Name" name="name" value="{{profile.user.first_name}}" required>
+                        </div>
+                        <div class="ef">       
+                            <label for="">Email</label>         
+                            <input type="email" class="form-control" placeholder="Enter Email" name="email" value="{{profile.user.email}}" readonly required>
+                        </div>              
+                        <div class="ef">
+                            <label for="">Contact Number</label>
+                            <input type="text" class="form-control"  name="contact_number" placeholder="Contact Number" pattern="[0-9]{10}" value="{{profile.contact}}" title="Number must contain 10 digits only!" required />
+                        </div>             
+                        <div class="ef">
+                            <label for="">Address</label>
+                            <textarea class="form-control" placeholder="Address"name="address" >{{profile.address}}</textarea>
+                        </div>
+                        <div class="ef">
+                            <label for="">Change Profile Picture</label>
+                            <input type="file" class="form-control" name="profile_pic">
+                        </div class="ef">
+                        <div class="ef">
+                            <button type="submit" name="update_profile" style="width: 100%;" class="btn  custom-btn" >Save Changes</button>
+                        </div class="ef">
+                    </form>
+                </div>
+            </div>
+            <div class="dash-content">
+                {% if profile.profile_pic %}
+                <a href="/media/{{profile.profile_pic}}"><img src="/media/{{profile.profile_pic}}" alt="" class="pic"></a>
+                {% else %}
+                <span class='pic'>{{profile.user.first_name.0}}</span>
+                {% endif %}
+                <p>{{user.first_name}}</p>
+                <p><em>{{user.email}}</em></p>
+                <p><strong>Contact: </strong>{{profile.contact}}</p>
+                <p><strong>Member Since: </strong>{{user.date_joined}}</p>
+                <p><strong>Last Login: </strong>{{user.last_login}}</p>
+            </div>
+            <section class="dashboard">
+                <div class="box">
+            <div class="table-responsive">
+                <table class="table table-bordered m-0">
+                  <thead>
+                    <tr>
+                      <!-- Set columns width -->
+                      <th class="text-center py-3 px-4" style="width: 120px;">Items</th>
+                      <th class="text-center py-3 px-4" style="min-width: 400px;">Invoice Id</th>
+                      <th class="text-right py-3 px-4" style="width: 100px;">Transaction Id</th>
+                      <th class="text-center py-3 px-4" style="width: 120px;">Order On</th>
+                      <th class="text-right py-3 px-4" style="width: 100px;">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      {% for orders in order %}
+                    <tr>
+                      <td class="p-4">
+                        <div class="media align-items-center">
+                          <p>{{orders.item}}</p>
+                        </div>
+                      </td>
+                      <td class="p-4">
+                          <div class="media align-items-center">
+                            <div class="media-body">
+                              <p>{{orders.invoice_id}}</p>
+                            </div>
+                          </div>
+                        </td>
+                      <td class="text-right font-weight-semibold align-middle p-4">{{orders.payer_id}}</td>
+                      <td class="text-right font-weight-semibold align-middle p-4">{{orders.ordered_on}}</td>
+                    </tr>
+                    {% endfor %}            
+                  </tbody>
+                </table>
+            </div>
+        </section>
+            <div id="change-pass">
+                <h2>Change Password</h2>
+                <div>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="cf">
+                            <label for=""><strong>Current Password</strong></label>
+                            <input type="password" placeholder="Enter Current Password" name="current_password">
+                        </div>
+                        <div class="cf">
+                            <div id="msz"></div>
+                        </div>
+                        <div class="cf">
+                            <label for=""><strong>New Password</strong></label>
+                            <input type="password" placeholder="Enter New Password" name="new_password">
+                        </div>
+                        <div class="cf">
+                            <label for=""><strong>Confirm Password</strong></label>
+                            <input type="password" placeholder="Confirm Password">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn custom-btn" id="change_pass" name="change_pass">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% endblock %}

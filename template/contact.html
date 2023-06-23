@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if message %}
+<script>
+    alert('{{message}}')
+</script>
+{% endif %}
+<section class="banner">
+    <img src="/static/img/contact.jpg" alt="">
+</section>
+    <section>
+        <div class="box">
+            <h1>Contact Us For Any Query</h1>
+            <div class="inner-box">
+                <div class="location">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3562.346080404736!2d83.3637422150418!3d26.765236083191233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3991455ffdb2e4af%3A0x67ed9359cc8b6740!2sFood%20O%20Meter!5e0!3m2!1sen!2sin!4v1683541845332!5m2!1sen!2sin"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="form">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <label for="name">Name</label>
+                        <input type="text" placeholder="Your Name" name="name">
+                        <label for="email">E-mail</label>
+                        <input type="email" placeholder="abc@gmail.com" name="email">
+                        <label for="phone">Mobile Number</label>
+                        <input type="number" name="mob_no">
+                        <label for="message">Message</label>
+                        <textarea name="message" placeholder="Message" name="message"></textarea>
+                        <button class="btm" type="submit">Enquiry Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}

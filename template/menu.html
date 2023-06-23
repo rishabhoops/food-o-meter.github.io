@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="banner">
+    <img src="/static/img/menu.jpg" alt="">
+</section>
+    <section class="items">
+        {% for i in menu %}
+        <div class="item">
+            <form method="post">
+            <img src="/media/{{i.item_img}}" alt="">
+            <h4>{{i.item_name}}</h4>
+            <h4 class="price">&#x20b9;{{i.item_price}}</h4>
+                {% csrf_token %}
+                <button name="product" class="addTocart" value="{{i.id}}">Add To Cart</button>
+            </form>
+        </div>
+        {% endfor %}
+    </section>
+    {% endblock %}
